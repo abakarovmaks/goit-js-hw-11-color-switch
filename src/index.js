@@ -1,32 +1,53 @@
-import './css/common.css';
+import './css/common';
+import colors from './js/colors';
 
-const colors = [
-  '#FFFFFF',
-  '#2196F3',
-  '#4CAF50',
-  '#FF9800',
-  '#009688',
-  '#795548',
-];
+const body = document.querySelector('body');
+const startBtn = document.querySelector('[data-action="start"]');
+const stopBtn = document.querySelector('[data-action="stop"]');
 
-const refs = {
-  startBtn: document.querySelector('button[data-action="start"]'),
-  stopBtn: document.querySelector('button[data-action="stop"]'),
-};
+class ColorPicker {
+  constructor() {
+    this.intervalId = null;
+    this.isActive = false;
+    this.colors = colors;
+  }
 
-const randomIntegerFromInterval = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
+  onBtnStart() {
+    if (this.isActive) {
+      return;
+    }
+    this.isActive = true;
+    this.intervalId = setInterval(() => {
+      this.onChangeColor();
+    }, 1000);
+  }
 
-const setRandomBodyColor = () => {
-  const color = colors[randomIntegerFromInterval(0, colors.length - 1)];
-  document.body.style.backgroundColor = color;
-};
+  onBtnStop() {
+    clearInterval(this.intervalId);
+    this.isActive = false;
+  }
 
-let interval = null;
+  randomIntegerFromInterval(min, max) {
+    const index = this.colors[
+      Math.floor(Math.random() * (max - min + 1) + min)
+    ];
+    if (index === this.index) {
+      this.randomIntegerFromInterval(min, max);
+    } else {
+      this.index = index;
+    }
+  }
+  onChangeColor() {
+    this.randomIntegerFromInterval(0, this.colors.length - 1);
+    body.style.backgroundColor = this.index;
+  }
+}
 
-refs.startBtn.addEventListener(
-  'click',
-  event => (interval = setInterval(() => setRandomBodyColor(), 1000)),
-);
-refs.stopBtn.addEventListener('click', event => clearInterval(interval));
+startBtn.addEventListener('click', () => {
+  colorPicker.onBtnStart();
+});
+stopBtn.addEventListener('click', () => {
+  colorPicker.onBtnStop();
+});
+
+const colorPicker = new ColorPicker();
