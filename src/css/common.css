@@ -37,3 +37,8 @@ button[data-action='stop'] {
   border: 2px solid rgb(197, 192, 192);
   outline: none;
 }
+
+button:hover,
+button:focus {
+  background-color: rgb(197, 192, 192);
+}
