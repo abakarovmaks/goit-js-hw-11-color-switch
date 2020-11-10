@@ -42,3 +42,10 @@ button:hover,
 button:focus {
   background-color: rgb(197, 192, 192);
 }
+
+button[disabled],
+button[disabled]:hover,
+button[disabled]:focus {
+  background-color: rgb(197, 192, 192);
+  color: rgba(0, 0, 0, 0.555);
+}

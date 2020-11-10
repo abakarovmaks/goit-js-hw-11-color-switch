@@ -20,11 +20,15 @@ class ColorPicker {
     this.intervalId = setInterval(() => {
       this.onChangeColor();
     }, 1000);
+
+    this.startButtonDisable();
   }
 
   onBtnStop() {
     clearInterval(this.intervalId);
     this.isActive = false;
+
+    this.stopButtonDisable();
   }
 
   randomIntegerFromInterval(min, max) {
@@ -40,6 +44,15 @@ class ColorPicker {
   onChangeColor() {
     this.randomIntegerFromInterval(0, this.colors.length - 1);
     body.style.backgroundColor = this.index;
+  }
+
+  startButtonDisable() {
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+  }
+  stopButtonDisable() {
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
   }
 }
 
