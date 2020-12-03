@@ -10,9 +10,14 @@ class ColorPicker {
     this.intervalId = null;
     this.isActive = false;
     this.colors = colors;
+    this.disabledStop();
   }
 
-  onBtnStart() {
+  disabledStop() {
+    stopBtn.disabled = true;
+  }
+
+  btnStart() {
     if (this.isActive) {
       return;
     }
@@ -24,7 +29,7 @@ class ColorPicker {
     this.startButtonDisable();
   }
 
-  onBtnStop() {
+  btnStop() {
     clearInterval(this.intervalId);
     this.isActive = false;
 
@@ -57,10 +62,10 @@ class ColorPicker {
 }
 
 startBtn.addEventListener('click', () => {
-  colorPicker.onBtnStart();
+  colorPicker.btnStart();
 });
 stopBtn.addEventListener('click', () => {
-  colorPicker.onBtnStop();
+  colorPicker.btnStop();
 });
 
 const colorPicker = new ColorPicker();
